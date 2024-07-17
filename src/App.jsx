@@ -43,7 +43,7 @@ function App() {
       </form>
       {submitted && (
         <div>
-          {/* <PDFViewer width="100%" height="600">
+          <PDFViewer width="100%" height="600">
             <PDFDocument height={height} weight={weight} />
           </PDFViewer>
 
@@ -54,9 +54,9 @@ function App() {
             {({ blob, url, loading, error }) =>
               loading ? 'Loading document...' : 'Download PDF'
             }
-          </PDFDownloadLink> */}
+          </PDFDownloadLink>
 
-          <Rectangle height={height} width={width} />
+          {/* <Rectangle height={height} width={width} /> */}
         </div>
       )}
     </div>
