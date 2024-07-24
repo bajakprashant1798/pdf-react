@@ -133,7 +133,7 @@ function App() {
         
         <div>
           <div>
-            <PDFViewer width="60%" height="600">
+            <PDFViewer className='w-full sm:w-full md:w-full lg:w-4/5' height={600}>
               <PDFDocument height={height} width={width} colour={colour} panelStyle={panelStyle} glass={glass} doorHardwareStyle={doorHardwareStyle} hardwareColour={hardwareColour} />
             </PDFViewer>
 

@@ -11,7 +11,7 @@
 }
   
 .right {
-    top: 50%;
+    top: 100%;
     right: -70px;
     transform: translateY(-50%);
 }
@@ -23,7 +23,28 @@
 }
 
 .left {
-    top: 50%;
+    top: 100%;
     left: -70px;
     transform: translateY(-50%);
+}
+
+.rectangleStyle {
+    height: 230px;
+    width: 120px;
+    background-color: none;
+    position: relative;
+    border: 3px solid white;
+}
+
+@media (max-width: 767px) {
+    .rectangleStyle {
+        height: 160px;
+        width: 80px;
+    }
+    .right {
+        right: -50px;
+    }
+    .left {
+        left: -50px;
+    }
 }

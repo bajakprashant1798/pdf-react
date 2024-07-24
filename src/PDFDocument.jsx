@@ -10,11 +10,11 @@ const styles = StyleSheet.create({
   section: {
     margin: 10,
     padding: 10,
-    // flexGrow: 1,
+    flexGrow: 1,
   },
   text: {
     fontSize: 14,
-    textAlign: 'center',
+    // textAlign: 'center',
     marginBottom: 10,
   },
 });
