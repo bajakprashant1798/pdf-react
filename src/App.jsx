@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
 import PDFDocument from './PDFDocument';
 import Rectangle from './components/rectangle/Rectangle';
@@ -12,11 +12,51 @@ function App() {
   const [glass, setGlass] = useState('');
   const [doorHardwareStyle, setDoorHardwareStyle] = useState('')
   const [hardwareColour, setHardwareColour] = useState('')
+  const [layout, setLayout] = useState('');
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
+    e.preventDefault(); // Prevent default form submission
+
+    // Validate the height
+    if (Number(height) > 108) {
+      // Set error message if height is more than 108
+      setErrorMessage('Height cannot be more than 108.');
+    } else {
+      // Clear the error message if validation passes
+      setErrorMessage('');
+
+      // Proceed with form submission logic (e.g., send data to the server)
+      console.log('Form submitted successfully');
+      // You can add your form submission code here
+
+      setSubmitted(true);
+    }
   };
+
+  const heightVelidation = () => {
+    if (Number(height) > 108) {
+      // Set error message if height is more than 108
+      setErrorMessage('Height cannot be more than 108.');
+    } else {
+      setErrorMessage(null)
+    }
+  }
+
+
+  useEffect(() => {
+    heightVelidation()
+  }, [height]);
+
+  // Handle input change
+  const handleHeightChange = (e) => {
+    setHeight(e.target.value); // Update height state as the user types
+  };
+
+  const handleWidthChange = (e) => {
+    setWidth(e.target.value);
+  }
 
   const resetForm = () => {
     setHeight('')
@@ -27,27 +67,53 @@ function App() {
     setGlass('')
     setDoorHardwareStyle('')
     setHardwareColour('')
+    setLayout('')
   }
 
   const options = [
     "Standard",
     "Tempered",
   ];
+  const layoutName = [
+    "A",
+    "B",
+    "C",
+    "D"
+  ]
 
   return (
     <div className='p-5'>
       {/* <h1>Height and width Square Calculator</h1> */}
       <form onSubmit={handleSubmit} className="mb-5">
+
         <div className='py-3'>
+          <label htmlFor="layout">Layouts: </label>
+          <select id="layout" className='p-2 rounded-md outline-none' value={layout} onChange={(e) => setLayout(e.target.value)}>
+              <option>Please choose one option </option>
+              {layoutName.map((option, index) => {
+                  return (
+                      <option key={index}>
+                          {option}
+                      </option>
+                  );
+              })}
+          </select>
+        </div>
+
+
+        <div className='pb-3'>
           <label htmlFor="height">Height (inch): </label>
           <input
             id="height"
             className='p-1 rounded-md outline-none'
             type="number"
             value={height}
-            onChange={(e) => setHeight(e.target.value)}
+            onChange={handleHeightChange }
             required
           />
+
+          {/* Display error message */}
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </div>
 
         <div className='pb-3'>
