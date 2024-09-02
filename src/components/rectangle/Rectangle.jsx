@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Rectangle.css'
+import RectangleGride from './RectangleGride';
 
 const Rectangle = ({ height, width }) => {
     
     const [newWidth, setNewWidth] = useState('');
-
+    const [lastDivisor, setLastDivisor] = useState()
+    
+    const rectangles = Array(lastDivisor).fill(null);
     // width > 108 ? (width/3).toFixed(2) : width;
 
 //   const rectangleStyle = {
@@ -29,6 +32,7 @@ const Rectangle = ({ height, width }) => {
         }
     
         setNewWidth(result)
+        setLastDivisor(lastDivisor)
         return result;  // Return the last divisor used
     }
     
@@ -37,57 +41,86 @@ const Rectangle = ({ height, width }) => {
         adjustWidth(width);
     }, [width]);
 
-  const rectangleContainer = {
-    display: 'flex',
-    width: 'fit-content'
-  };
+//   const rectangleContainer = {
+//     display: 'flex',
+//     width: 'fit-content'
+//   };
 
   return (
-    <div className='flex justify-center my-10'>
-        <div className='grid grid-rows-2 gap-0'>
-            <div style={rectangleContainer}>
-                <div className='rectangleStyle'>
-                    <div className="side top">{newWidth}inch</div>
-                    {/* <div className="side right"></div> */}
-                    {/* <div className="side bottom">{newWidth}px</div> */}
-                    <div className="side left">{height}inch</div>
-                </div>
-                <div className='rectangleStyle'>
-                    <div className="side top">{newWidth}inch</div>
-                    {/* <div className="side right"></div> */}
-                    {/* <div className="side bottom">{newWidth}px</div> */}
-                    {/* <div className="side left"></div> */}
-                </div>
-                <div className='rectangleStyle'>
-                    <div className="side top">{newWidth}inch</div>
-                    <div className="side right">{height}inch</div>
-                    {/* <div className="side bottom">{newWidth}px</div> */}
-                    {/* <div className="side left"></div> */}
-                </div>
-            </div>
 
-            <div style={rectangleContainer}>
-                <div className='rectangleStyle'>
-                    {/* <div className="side top">{newWidth}px</div> */}
-                    {/* <div className="side right"></div> */}
-                    <div className="side bottom">{newWidth}inch</div>
-                    {/* <div className="side left">{height}inch</div> */}
-                </div>
-                <div className='rectangleStyle'>
-                    {/* <div className="side top">{newWidth}px</div> */}
-                    {/* <div className="side right"></div> */}
-                    <div className="side bottom">{newWidth}inch</div>
-                    {/* <div className="side left"></div> */}
-                </div>
-                <div className='rectangleStyle'>
-                    {/* <div className="side top">{newWidth}px</div> */}
-                    {/* <div className="side right">{height}inch</div> */}
-                    <div className="side bottom">{newWidth}inch</div>
-                    {/* <div className="side left"></div> */}
-                </div>
-            </div>
+    <div className="grid-container"
+        style={ {
+            display: 'grid',
+            gridTemplateColumns: `repeat(${lastDivisor}, 1fr)`,
+            gridTemplateRows: 'repeat(2, 1fr)'
+        }}
+    >
+        <p className='height-position'>{height}inch</p>
+      {rectangles.map((_, index) => (
+        <div className="rectangle"  key={index}>
+          <div className="side top">{width}inch</div>
+          <div className="side bottom"></div>
+          <div className="side left"></div>
+          <div className="side right"></div>
         </div>
+        
+      ))}
+
+      {rectangles.map((_, index) => (
+        <div className="rectangle" key={index}>
+          <div className="side top"></div>
+          <div className="side bottom">{width}inch</div>
+          <div className="side left"></div>
+          <div className="side right"></div>
+        </div>
+        
+      ))}
     </div>
+    // <div className='flex justify-center my-10'>
+    //     <div className='grid grid-rows-2 gap-0'>
+    //         <div style={rectangleContainer}>
+    //             <div className='rectangleStyle'>
+    //                 <div className="side top">{newWidth}inch</div>
+    //                 {/* <div className="side right"></div> */}
+    //                 {/* <div className="side bottom">{newWidth}px</div> */}
+    //                 <div className="side left">{height}inch</div>
+    //             </div>
+    //             <div className='rectangleStyle'>
+    //                 <div className="side top">{newWidth}inch</div>
+    //                 {/* <div className="side right"></div> */}
+    //                 {/* <div className="side bottom">{newWidth}px</div> */}
+    //                 {/* <div className="side left"></div> */}
+    //             </div>
+    //             <div className='rectangleStyle'>
+    //                 <div className="side top">{newWidth}inch</div>
+    //                 <div className="side right">{height}inch</div>
+    //                 {/* <div className="side bottom">{newWidth}px</div> */}
+    //                 {/* <div className="side left"></div> */}
+    //             </div>
+    //         </div>
+
+    //         <div style={rectangleContainer}>
+    //             <div className='rectangleStyle'>
+    //                 {/* <div className="side top">{newWidth}px</div> */}
+    //                 {/* <div className="side right"></div> */}
+    //                 <div className="side bottom">{newWidth}inch</div>
+    //                 {/* <div className="side left">{height}inch</div> */}
+    //             </div>
+    //             <div className='rectangleStyle'>
+    //                 {/* <div className="side top">{newWidth}px</div> */}
+    //                 {/* <div className="side right"></div> */}
+    //                 <div className="side bottom">{newWidth}inch</div>
+    //                 {/* <div className="side left"></div> */}
+    //             </div>
+    //             <div className='rectangleStyle'>
+    //                 {/* <div className="side top">{newWidth}px</div> */}
+    //                 {/* <div className="side right">{height}inch</div> */}
+    //                 <div className="side bottom">{newWidth}inch</div>
+    //                 {/* <div className="side left"></div> */}
+    //             </div>
+    //         </div>
+    //     </div>
+    // </div>
   );
 };
 

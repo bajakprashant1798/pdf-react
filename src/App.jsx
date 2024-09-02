@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
 import PDFDocument from './PDFDocument';
 import Rectangle from './components/rectangle/Rectangle';
+import RectangleGride from './components/rectangle/RectangleGride';
 
 function App() {
   const [height, setHeight] = useState('');
@@ -13,6 +14,8 @@ function App() {
   const [doorHardwareStyle, setDoorHardwareStyle] = useState('')
   const [hardwareColour, setHardwareColour] = useState('')
   const [layout, setLayout] = useState('');
+
+  // const [numberOfWindow, setNumberOfWindow] = useState("")
 
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -56,6 +59,22 @@ function App() {
 
   const handleWidthChange = (e) => {
     setWidth(e.target.value);
+
+    // const originalWidth = e.target.value
+
+    // let lastDivisor = 1;  // Initialize with the first divisor
+
+    // for (let i = 1; i <= 10; i++) {  // Loop through divisors from 1 to 10
+    //     let result = originalWidth / i;  // Divide the original width by the current divisor
+        
+    //     if (result < 43) {  // If the result is less than 43
+    //         lastDivisor = i;  // Update the last divisor
+    //         break;  // Stop the process
+    //     }
+    // }
+
+    // setNumberOfWindow(lastDivisor)
+    // return lastDivisor;  // Return the last divisor used
   }
 
   const resetForm = () => {
@@ -123,7 +142,7 @@ function App() {
               className='p-1 rounded-md outline-none'
               type="number"
               value={width}
-              onChange={(e) => setWidth(e.target.value)}
+              onChange={handleWidthChange}
               required
             />
         </div>
@@ -215,6 +234,7 @@ function App() {
 
           <div>
             <Rectangle height={height} width={width}  />
+            {/* <RectangleGride numberOfRectangles={numberOfWindow}  /> */}
           </div>
         </div>
       )}
