@@ -1,3 +1,60 @@
+.height-position {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.grid-container {
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr);  
+    grid-template-rows: repeat(2, 1fr);    
+    gap: 0px;  */
+    /* display: flex;
+    flex-direction: column; */
+    padding: 50px 100px;
+    /* background-color: #333; */
+    color: white;
+    text-align: center;
+    position: relative;
+}
+  
+.rectangle {
+    position: relative;
+    background-color: black;
+    border: 2px solid white;
+    height: 308px;  /* Height of each rectangle */
+}
+  
+.side {
+    position: absolute;
+    color: white;
+}
+  
+.top {
+    top: -30px;  /* Adjust to position the text */
+    left: 50%;
+    transform: translateX(-50%);
+}
+  
+.bottom {
+    bottom: -30px;  /* Adjust to position the text */
+    left: 50%;
+    transform: translateX(-50%);
+}
+  
+.left {
+    top: 50%;
+    left: -40px;  /* Adjust to position the text */
+    transform: translateY(-50%);
+}
+  
+.right {
+    top: 50%;
+    right: -40px;  /* Adjust to position the text */
+    transform: translateY(-50%);
+}
+
 /* .side {
     position: absolute;
     font-size: 14px;
@@ -48,61 +105,3 @@
         left: -50px;
     }
 } */
-
-
-.height-position {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.grid-container {
-    /* display: grid;
-    grid-template-columns: repeat(3, 1fr);  
-    grid-template-rows: repeat(2, 1fr);    
-    gap: 0px;  */
-    /* display: flex;
-    flex-direction: column; */
-    padding: 50px 100px;
-    /* background-color: #333; */
-    color: white;
-    text-align: center;
-    position: relative;
-  }
-  
-  .rectangle {
-    position: relative;
-    background-color: black;
-    border: 2px solid white;
-    height: 308px;  /* Height of each rectangle */
-  }
-  
-  .side {
-    position: absolute;
-    color: white;
-  }
-  
-  .top {
-    top: -30px;  /* Adjust to position the text */
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .bottom {
-    bottom: -30px;  /* Adjust to position the text */
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .left {
-    top: 50%;
-    left: -40px;  /* Adjust to position the text */
-    transform: translateY(-50%);
-  }
-  
-  .right {
-    top: 50%;
-    right: -40px;  /* Adjust to position the text */
-    transform: translateY(-50%);
-  }
