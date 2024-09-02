@@ -48,7 +48,7 @@ const Rectangle = ({ height, width }) => {
         <p className='height-position'>{height}inch</p>
       {rectangles.map((_, index) => (
         <div className="rectangle"  key={index}>
-          <div className="side top">{width}inch</div>
+          <div className="side top">{newWidth}inch</div>
           <div className="side bottom"></div>
           <div className="side left"></div>
           <div className="side right"></div>
@@ -59,7 +59,7 @@ const Rectangle = ({ height, width }) => {
       {rectangles.map((_, index) => (
         <div className="rectangle" key={index}>
           <div className="side top"></div>
-          <div className="side bottom">{width}inch</div>
+          <div className="side bottom">{newWidth}inch</div>
           <div className="side left"></div>
           <div className="side right"></div>
         </div>
