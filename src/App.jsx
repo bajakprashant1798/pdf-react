@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
 import PDFDocument from './PDFDocument';
 import Rectangle from './components/rectangle/Rectangle';
-import RectangleGride from './components/rectangle/RectangleGride';
 
 function App() {
   const [height, setHeight] = useState('');
@@ -116,8 +115,8 @@ function App() {
 
         <div className='pb-5'>
           <p className='pb-1 text-xl'>Window Dimensions:</p>
-          <div className='grid grid-cols-2 gap-4'>
-            <div className='pr-4'>
+          <div className='md:grid md:grid-cols-2 md:gap-4'>
+            <div className='mb-2 md:mb-0'>
               <label htmlFor="width" className='pb-1'>width(inch): </label>
               <input
                 id="width"
@@ -150,8 +149,8 @@ function App() {
           
         </div> */}
 
-        <div className='pb-5 grid grid-cols-2 gap-4'>
-          <div>
+        <div className='pb-5 md:grid md:grid-cols-2 md:gap-4'>
+          <div className='mb-5 md:mb-0'>
             <label htmlFor="colour" className='block text-xl pb-1'>Colour: </label>
             <input
                 id="colour"
@@ -231,8 +230,8 @@ function App() {
           {/* <h3>You selected: {glass} </h3> */}
         </div>
 
-        <div className='flex justify-center items-center'>
-          <button type="submit" className='bg-white text-black font-semibold'>Generate PDF</button>
+        <div className='flex flex-col md:flex-row justify-center items-center'>
+          <button type="submit" className='bg-white text-black font-semibold mb-3 md:mb-0'>Generate PDF</button>
           <button type="button" className="mx-3" onClick={() => resetForm()}>Reset</button>
         </div>
       </form>
