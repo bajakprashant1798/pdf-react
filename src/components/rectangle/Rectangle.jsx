@@ -45,7 +45,7 @@ const Rectangle = ({ height, width }) => {
             gridTemplateRows: 'repeat(2, 1fr)'
         }}
     >
-        <p className='height-position'>{height}inch</p>
+        <p className='height-position vertical-lr'>{height}inch</p>
       {rectangles.map((_, index) => (
         <div className="rectangle"  key={index}>
           <div className="side top">{newWidth}inch</div>

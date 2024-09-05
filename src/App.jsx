@@ -59,22 +59,6 @@ function App() {
 
   const handleWidthChange = (e) => {
     setWidth(e.target.value);
-
-    // const originalWidth = e.target.value
-
-    // let lastDivisor = 1;  // Initialize with the first divisor
-
-    // for (let i = 1; i <= 10; i++) {  // Loop through divisors from 1 to 10
-    //     let result = originalWidth / i;  // Divide the original width by the current divisor
-        
-    //     if (result < 43) {  // If the result is less than 43
-    //         lastDivisor = i;  // Update the last divisor
-    //         break;  // Stop the process
-    //     }
-    // }
-
-    // setNumberOfWindow(lastDivisor)
-    // return lastDivisor;  // Return the last divisor used
   }
 
   const resetForm = () => {
@@ -99,16 +83,26 @@ function App() {
     "C",
     "D"
   ]
+  const panelStyleOptions = [
+    "Single Strom O/S",
+    "Double Strom O/S",
+    "Single Strom I/S",
+    "Patio Strom O/X",
+    "Patio Strom X/O",
+  ]
 
   return (
     <div className='p-5'>
       {/* <h1>Height and width Square Calculator</h1> */}
-      <form onSubmit={handleSubmit} className="mb-5">
 
-        <div className='py-3'>
-          <label htmlFor="layout">Layouts: </label>
-          <select id="layout" className='p-2 rounded-md outline-none' value={layout} onChange={(e) => setLayout(e.target.value)}>
-              <option>Please choose one option </option>
+      <h2 className='text-center w-100 text-4xl font-semibold mb-5'>Compney Name</h2>
+
+      <form onSubmit={handleSubmit} className="max-w-screen-md mx-auto mb-5">
+
+        <div className='py-5'>
+          <label htmlFor="layout" className='block text-xl pb-1'>Layout: </label>
+          <select id="layout" className='p-2 rounded-md outline-none w-full' value={layout} onChange={(e) => setLayout(e.target.value)}>
+              <option>Select Layout </option>
               {layoutName.map((option, index) => {
                   return (
                       <option key={index}>
@@ -120,62 +114,77 @@ function App() {
         </div>
 
 
-        <div className='pb-3'>
-          <label htmlFor="height">Height (inch): </label>
-          <input
-            id="height"
-            className='p-1 rounded-md outline-none'
-            type="number"
-            value={height}
-            onChange={handleHeightChange }
-            required
-          />
+        <div className='pb-5'>
+          <p className='pb-1 text-xl'>Window Dimensions:</p>
+          <div className='grid grid-cols-2 gap-4'>
+            <div className='pr-4'>
+              <label htmlFor="width" className='pb-1'>width(inch): </label>
+              <input
+                id="width"
+                className='p-1 rounded-md outline-none w-full'
+                type="number"
+                value={width}
+                onChange={handleWidthChange}
+                required
+              />
+            </div>
+
+            <div >
+              <label htmlFor="height" className='pb-1'>Height(inch): </label>
+              <input
+                id="height"
+                className='p-1 rounded-md outline-none w-full'
+                type="number"
+                value={height}
+                onChange={handleHeightChange }
+                required
+              />
+            </div>
+          </div>
 
           {/* Display error message */}
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </div>
 
-        <div className='pb-3'>
-          <label htmlFor="width">width (inch): </label>
-            <input
-              id="width"
-              className='p-1 rounded-md outline-none'
-              type="number"
-              value={width}
-              onChange={handleWidthChange}
-              required
-            />
-        </div>
+        {/* <div className='pb-3'>
+          
+        </div> */}
 
-        <div className='pb-3'>
-          <label htmlFor="width">Colour: </label>
+        <div className='pb-5 grid grid-cols-2 gap-4'>
+          <div>
+            <label htmlFor="colour" className='block text-xl pb-1'>Colour: </label>
             <input
-              id="colour"
-              className='p-1 rounded-md outline-none'
+                id="colour"
+                className='p-1 rounded-md outline-none w-full'
+                type="text"
+                value={colour}
+                onChange={(e) => setColour(e.target.value)}
+                
+            />
+          </div>
+
+          <div>
+          <label htmlFor="hardware-colour" className='block text-xl pb-1'>Hardware Colour: </label>
+            <input
+              id="hardware-colour"
+              className='p-1 rounded-md outline-none w-full'
               type="text"
-              value={colour}
-              onChange={(e) => setColour(e.target.value)}
+              value={hardwareColour}
+              onChange={(e) => setHardwareColour(e.target.value)}
               
             />
+          </div>
         </div>
 
-        <div className='pb-3'>
-          <label htmlFor="panel">Panel Style: </label>
-            <input
-              id="panel"
-              className='p-1 rounded-md outline-none'
-              type="text"
-              value={panelStyle}
-              onChange={(e) => setPanelStyle(e.target.value)}
-              
-            />
-        </div>
+        {/* <div className='pb-5'>
+          
+        </div> */}
 
-        <div className='pb-3'>
-          <label htmlFor="door-hardware">Door Hardware Style: </label>
+        <div className='pb-5'>
+          <label htmlFor="door-hardware" className='block text-xl pb-1'>Door Hardware Style: </label>
             <input
               id="door-hardware"
-              className='p-1 rounded-md outline-none'
+              className='p-1 rounded-md outline-none w-full'
               type="text"
               value={doorHardwareStyle}
               onChange={(e) => setDoorHardwareStyle(e.target.value)}
@@ -183,22 +192,34 @@ function App() {
             />
         </div>
 
-        <div className='pb-3'>
-          <label htmlFor="hardware-colour">Hardware Colour: </label>
-            <input
-              id="hardware-colour"
-              className='p-1 rounded-md outline-none'
-              type="text"
-              value={hardwareColour}
-              onChange={(e) => setHardwareColour(e.target.value)}
-              
-            />
+        <div className='pb-5'>
+          <label htmlFor="panel" className='block text-xl pb-1'>Panel Style: </label>
+          <select id="panel" className='p-2 rounded-md outline-none w-full' value={layout} onChange={(e) => setLayout(e.target.value)}>
+              <option>Select Panel Style </option>
+              {panelStyleOptions.map((option, index) => {
+                  return (
+                      <option key={index}>
+                          {option}
+                      </option>
+                  );
+              })}
+          </select>
+
+          {/* <input
+            id="panel"
+            className='p-1 rounded-md outline-none w-full'
+            type="text"
+            value={panelStyle}
+            onChange={(e) => setPanelStyle(e.target.value)}
+            
+          /> */}
+
         </div>
 
-        <div className='pb-3'>
-          <label htmlFor="glass">Glass: </label>
-          <select id="glass" className='p-2 rounded-md outline-none' value={glass} onChange={(e) => setGlass(e.target.value)}>
-              <option>Please choose one option </option>
+        <div className='pb-5'>
+          <label htmlFor="glass" className='block text-xl pb-1'>Glass: </label>
+          <select id="glass" className='p-2 rounded-md outline-none w-full' value={glass} onChange={(e) => setGlass(e.target.value)}>
+              <option>Select Glass Style </option>
               {options.map((option, index) => {
                   return (
                       <option key={index}>
@@ -210,26 +231,33 @@ function App() {
           {/* <h3>You selected: {glass} </h3> */}
         </div>
 
-        <button type="submit">Generate PDF</button>
-        <button type="button" className="mx-3" onClick={() => resetForm()}>Reset</button>
+        <div className='flex justify-center items-center'>
+          <button type="submit" className='bg-white text-black font-semibold'>Generate PDF</button>
+          <button type="button" className="mx-3" onClick={() => resetForm()}>Reset</button>
+        </div>
       </form>
 
       {submitted && (
         
-        <div>
+        <div className='lg:grid lg:grid-cols-2 lg:gap-4'>
           <div>
-            <PDFViewer className='w-full sm:w-full md:w-full lg:w-4/5' height={600}>
+          {/* md:w-full lg:w-4/5 */}
+
+            <h3 className='text-2xl font-medium text-center mb-3'>Quotation</h3>
+            <PDFViewer className='w-full sm:w-full ' height={600}>
               <PDFDocument height={height} width={width} colour={colour} panelStyle={panelStyle} glass={glass} doorHardwareStyle={doorHardwareStyle} hardwareColour={hardwareColour} />
             </PDFViewer>
 
-            <PDFDownloadLink
-              document={<PDFDocument height={height} width={width} colour={colour} panelStyle={panelStyle} glass={glass} doorHardwareStyle={doorHardwareStyle} hardwareColour={hardwareColour} />}
-              fileName="demo.pdf"
-            >
-              {({ blob, url, loading, error }) =>
-                loading ? 'Loading document...' : <button type="button" className='my-4'>Download PDF</button>
-              }
-            </PDFDownloadLink>
+            <div className='flex justify-center items-center'>
+              <PDFDownloadLink
+                document={<PDFDocument height={height} width={width} colour={colour} panelStyle={panelStyle} glass={glass} doorHardwareStyle={doorHardwareStyle} hardwareColour={hardwareColour} />}
+                fileName="demo.pdf"
+              >
+                {({ blob, url, loading, error }) =>
+                  loading ? 'Loading document...' : <button type="button" className='my-4'>Download PDF</button>
+                }
+              </PDFDownloadLink>
+            </div>
           </div>
 
           <div>
