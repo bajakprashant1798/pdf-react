@@ -2,6 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
 import PDFDocument from './PDFDocument';
 import Rectangle from './components/rectangle/Rectangle';
+import RadioBtn from './components/radioBtn/RadioBtn';
+import DoorDistanceControl from './components/doorDistanceBar/DoorDistanceControl';
+
+const doorTypeOptions = [
+  { label: 'Single Door', value: 'Single Door' },
+  { label: 'Double Door', value: 'Double Door' },
+  { label: 'Sliding Door', value: 'Sliding Door' },
+];
+
+const doorSubTypeOptions = [
+  { label: 'Insliding', value: 'Insliding' },
+  { label: 'Outsliding', value: 'Outsliding' },
+];
+
+const doorFaceOptions = [
+  { label: 'Front', value: 'Front' },
+  { label: 'Left', value: 'Left' },
+  { label: 'Right', value: 'Right' },
+];
+
+const imageTypeOptions = [
+  { value: 'image1', src: '/a.png', alt: 'Image 1' },
+  { value: 'image2', src: '/b.png', alt: 'Image 2' },
+  { value: 'image3', src: '/c.png', alt: 'Image 3' },
+  { value: 'image4', src: '/d.png', alt: 'Image 4' }
+];
 
 function App() {
   const [height, setHeight] = useState('');
@@ -14,6 +40,34 @@ function App() {
   const [hardwareColour, setHardwareColour] = useState('')
   const [layout, setLayout] = useState('');
 
+  // State to hold the selected image
+
+
+  const [selectedDoorType, setSelectedDoorType] = useState(null);
+  const [selectedDoorSubType, setSelectedDoorSubType] = useState(null);
+  const [selectedFaceType, setSelectedFaceType] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  // Array of images (You can replace these paths with actual image paths)
+
+
+  const handleImgSelect = (image) => {
+    setSelectedImage(image.src); // Save the selected image URL
+  };
+
+  const handleDoorTypeSelect = (value) => {
+    setSelectedDoorType(value);
+  };
+
+  const handleDoorSubTypeSelect = (value) => {
+    setSelectedDoorSubType(value);
+  };
+
+  const handleFaceTypeSelect = (faceTypeValue) => {
+    setSelectedFaceType(faceTypeValue);
+  };
+
+ 
   // const [numberOfWindow, setNumberOfWindow] = useState("")
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -72,6 +126,9 @@ function App() {
     setLayout('')
   }
 
+
+  
+
   const options = [
     "Standard",
     "Tempered",
@@ -94,7 +151,7 @@ function App() {
     <div className='p-5'>
       {/* <h1>Height and width Square Calculator</h1> */}
 
-      <h2 className='text-center w-100 text-4xl font-semibold mb-5'>Compney Name</h2>
+      <h2 className='text-center w-100 text-4xl font-semibold mb-5'>Company Name</h2>
 
       <form onSubmit={handleSubmit} className="max-w-screen-md mx-auto mb-5">
 
@@ -113,8 +170,56 @@ function App() {
         </div>
 
 
+
+        <div>
+          <h2>Select an image:</h2>
+          <div className="radio-group">
+              {imageTypeOptions.map((image, index) => (
+                  <label key={index}>
+                  <input
+                      type="radio"
+                      name="imageOption"
+                      value={image.value}
+                      onChange={() => handleImgSelect(image)}
+                      style={{ display: 'none' }} // Hide the radio button
+                  />
+                  <img
+                      src={image.src}
+                      alt={image.alt}
+                      className={selectedImage === image.src ? 'selected' : ''}
+                      style={{
+                      width: '100px',
+                      height: '100px',
+                      border: selectedImage === image.src ? '3px solid blue' : '2px solid transparent',
+                      cursor: 'pointer'
+                      }}
+                  />
+                  </label>
+              ))}
+          </div>
+        </div>
+
+        
+
+        {/* Display the selected image */}
+        {selectedImage && (
+          <div className="selected-image">
+            <h3>Selected Image:</h3>
+            <img src={selectedImage} alt="Selected" style={{ width: '200px', height: '200px' }} />
+          </div>
+        )}
+           
+
         <div className='pb-5'>
-          <p className='pb-1 text-xl'>Window Dimensions:</p>
+          {/* <p className='pb-1 text-xl'>Window Dimensions:</p> */}
+
+          {selectedImage && (
+            <div className="selected-image">
+              <h3>Dimensions:</h3>
+              <img src={selectedImage} alt="Selected" style={{ width: '200px', height: '200px' }} />
+            </div>
+          )}
+
           <div className='md:grid md:grid-cols-2 md:gap-4'>
             <div className='mb-2 md:mb-0'>
               <label htmlFor="width" className='pb-1'>width(inch): </label>
@@ -145,11 +250,11 @@ function App() {
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </div>
 
-        {/* <div className='pb-3'>
-          
-        </div> */}
 
-        <div className='pb-5 md:grid md:grid-cols-2 md:gap-4'>
+        
+
+
+        {/* <div className='pb-5 md:grid md:grid-cols-2 md:gap-4'>
           <div className='mb-5 md:mb-0'>
             <label htmlFor="colour" className='block text-xl pb-1'>Colour: </label>
             <input
@@ -173,27 +278,61 @@ function App() {
               
             />
           </div>
-        </div>
-
-        {/* <div className='pb-5'>
-          
         </div> */}
 
+
         <div className='pb-5'>
-          <label htmlFor="door-hardware" className='block text-xl pb-1'>Door Hardware Style: </label>
-            <input
+          <label className='block text-xl pb-1'>What face you need your door to be on: </label>
+            {/* <input
               id="door-hardware"
               className='p-1 rounded-md outline-none w-full'
               type="text"
               value={doorHardwareStyle}
               onChange={(e) => setDoorHardwareStyle(e.target.value)}
               
-            />
+            /> */}
+
+            <RadioBtn options={doorFaceOptions} onSelect={handleFaceTypeSelect} name={"doorFace"} />
+            {
+                <h3>Door Type: {selectedFaceType}</h3>
+                
+            }
         </div>
+
+
+        <div className='pb-5'>
+          <label className='block text-xl pb-1'>Door Hardware Style: </label>
+            {/* <input
+              id="door-hardware"
+              className='p-1 rounded-md outline-none w-full'
+              type="text"
+              value={doorHardwareStyle}
+              onChange={(e) => setDoorHardwareStyle(e.target.value)}
+              
+            /> */}
+
+            <RadioBtn options={doorTypeOptions} onSelect={handleDoorTypeSelect} name={"doorType"} />
+            {
+                <h3>Door Type: {selectedDoorType === "Single Door" ?
+                  <div> 
+                    <RadioBtn options={doorSubTypeOptions} onSelect={handleDoorSubTypeSelect} name={"doorSubType"} /> 
+                    <h3>Door SubType: {selectedDoorSubType}</h3>
+                  </div>
+                  : selectedDoorType }</h3>
+                
+            }
+        </div>
+
+
+
+        <div>
+          <DoorDistanceControl />
+        </div>
+
 
         <div className='pb-5'>
           <label htmlFor="panel" className='block text-xl pb-1'>Panel Style: </label>
-          <select id="panel" className='p-2 rounded-md outline-none w-full' value={layout} onChange={(e) => setLayout(e.target.value)}>
+          <select id="panel" className='p-2 rounded-md outline-none w-full' value={panelStyle} onChange={(e) => setPanelStyle(e.target.value)}>
               <option>Select Panel Style </option>
               {panelStyleOptions.map((option, index) => {
                   return (

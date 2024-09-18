@@ -1,0 +1,27 @@
+.wall {
+    position: relative;
+    width: 500px;
+    height: 30px;
+    background-color: #f0f0f0;
+    border: 2px solid black;
+    margin-bottom: 20px;
+  }
+  
+  .door {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: brown;
+    cursor: pointer;
+  }
+  
+  input[type="range"] {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  input[type="number"] {
+    padding: 5px;
+    font-size: 14px;
+  }
+  
