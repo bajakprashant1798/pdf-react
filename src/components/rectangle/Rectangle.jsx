@@ -89,13 +89,7 @@ const Rectangle = ({ height, width, doorDistance }) => {
         <div 
           className="door"
           style={{
-            position: 'absolute',
             left: `${distanceInInches}%`,  // Door position in pixels
-            width: '120px',
-            height: '230px',
-            backgroundColor: 'brown',
-            transition: 'left 0.2s ease', // Smooth movement
-            bottom: '50px'
           }}
         />
       </div>

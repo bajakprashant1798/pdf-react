@@ -21,10 +21,10 @@
 
 .door {
     position: absolute;
-    width: 30px;
-    height: 30px;
-    background-color: brown;
-    cursor: pointer;
+    width: '120px';
+    height: '230px';
+    background-color: 'brown';
+    bottom: '50px';
   }
 
   .wall {
@@ -88,6 +88,12 @@
     .height-position {
         left: -10px;
     }
+
+    .door {
+        width: '80px';
+        height: '200px';
+    }
+
     /* 
     
     .grid-container .rectangle > :nth-child(2) {

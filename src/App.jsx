@@ -4,6 +4,7 @@ import PDFDocument from './PDFDocument';
 import Rectangle from './components/rectangle/Rectangle';
 import RadioBtn from './components/radioBtn/RadioBtn';
 import DoorDistanceControl from './components/doorDistanceBar/DoorDistanceControl';
+// import './index.css'
 
 const doorTypeOptions = [
   { label: 'Single Door', value: 'Single Door' },
@@ -189,8 +190,8 @@ function App() {
 
 
 
-        <div>
-          <h2>Select an image:</h2>
+        <div className='glassmorphism'>
+          <h2>Layout:</h2>
           <div className="radio-group flex flex-wrap pb-2">
               {imageTypeOptions.map((image, index) => (
                   <label key={index} className='flex mr-9 mb-5'>
@@ -210,8 +211,8 @@ function App() {
                       alt={image.alt}
                       className={selectedImage === image.src ? 'selected' : ''}
                       style={{
-                      width: '300px',
-                      height: '300px',
+                      width: '250px',
+                      height: '250px',
                       border: selectedImage === image.src ? '3px solid blue' : '2px solid transparent',
                       cursor: 'pointer',
                       }}
@@ -232,7 +233,7 @@ function App() {
         )}
            
 
-        <div className='pb-5'>
+        <div className='mt-5 glassmorphism'>
           {/* <p className='pb-1 text-xl'>Window Dimensions:</p> */}
 
           {selectedImage && (
@@ -242,8 +243,8 @@ function App() {
             </div>
           )}
 
-          <div className='md:grid md:grid-cols-2 md:gap-4 mt-2'>
-            <div className='mb-2 md:mb-0'>
+          <div className='md:grid md:grid-cols-2 md:gap-4 mt-2 '>
+            <div className='mb-2 md:mb-0 glassmorphism'>
               <label htmlFor="width" className='pb-1'>width(inch): </label>
               <input
                 id="width"
@@ -255,7 +256,7 @@ function App() {
               />
             </div>
 
-            <div >
+            <div className='glassmorphism'>
               <label htmlFor="height" className='pb-1'>Height(inch): </label>
               <input
                 id="height"
@@ -303,23 +304,23 @@ function App() {
         </div> */}
 
 
-        <div className='pb-5'>
+        <div className='mt-5 glassmorphism'>
           <label className='block text-xl pb-1'>What face you need your door to be on: </label>
 
             <RadioBtn options={doorFaceOptions} onSelect={handleFaceTypeSelect} name={"doorFace"} />
             {
-                <h3>Door Type: {selectedFaceType}</h3>
+                <h3>Door Face: {selectedFaceType}</h3>
                 
             }
         </div>
 
 
-        <div className='pb-5'>
+        <div className='mt-5 glassmorphism'>
           <label className='block text-xl pb-1'>Door Hardware Style: </label>
 
             <RadioBtn options={doorTypeOptions} onSelect={handleDoorTypeSelect} name={"doorType"} />
             {
-                <h3>Door Type: {selectedDoorType === "Single Door" ?
+                <h3>Door Hardware Style: {selectedDoorType === "Single Door" ?
                   <div> 
                     <RadioBtn options={doorSubTypeOptions} onSelect={handleDoorSubTypeSelect} name={"doorSubType"} /> 
                     <h3>Door SubType: {selectedDoorSubType}</h3>
@@ -331,7 +332,7 @@ function App() {
 
 
 
-        <div className="pb-5">
+        <div className="mt-5 glassmorphism">
           <DoorDistanceControl doorDistance={handleDistance}  />
 
           <h3>Door Distance: {doorDistance} </h3>
@@ -340,7 +341,7 @@ function App() {
 
 
         
-        <div className='pb-5'>
+        <div className='mt-5 glassmorphism'>
           <label className='block text-xl pb-1'>Width and Hight of door: </label>
 
             <RadioBtn options={doorWidthHightOptions} onSelect={handleDoorWidthHightSelect} name={"doorWidthHight"} />
@@ -354,7 +355,7 @@ function App() {
 
 
 
-        <div className='pb-5'>
+        <div className='mt-5 glassmorphism'>
           <label htmlFor="panel" className='block text-xl pb-1'>Panel Style: </label>
           <select id="panel" className='p-2 rounded-md outline-none w-full' value={panelStyle} onChange={(e) => setPanelStyle(e.target.value)}>
               <option>Select Panel Style </option>
@@ -378,7 +379,7 @@ function App() {
 
         </div>
 
-        <div className='pb-5'>
+        <div className='mt-5 glassmorphism'>
           <label htmlFor="glass" className='block text-xl pb-1'>Glass: </label>
           <select id="glass" className='p-2 rounded-md outline-none w-full' value={glass} onChange={(e) => setGlass(e.target.value)}>
               <option>Select Glass Style </option>
@@ -392,7 +393,7 @@ function App() {
           </select>
         </div>
 
-        <div className='flex flex-col md:flex-row justify-center items-center'>
+        <div className='mt-5 flex flex-col md:flex-row justify-center items-center'>
           <button type="submit" className='bg-white text-black font-semibold mb-3 md:mb-0'>Generate PDF</button>
           <button type="button" className="mx-3" onClick={() => resetForm()}>Reset</button>
         </div>
