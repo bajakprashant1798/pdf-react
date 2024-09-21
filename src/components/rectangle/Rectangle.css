@@ -18,6 +18,23 @@
     text-align: center;
     position: relative;
 }
+
+.door {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: brown;
+    cursor: pointer;
+  }
+
+  .wall {
+    position: relative;
+    width: 500px;
+    height: 30px;
+    background-color: #f0f0f0;
+    border: 2px solid black;
+    margin-bottom: 20px;
+  }
   
 .rectangle {
     position: relative;

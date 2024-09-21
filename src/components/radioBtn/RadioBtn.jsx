@@ -21,9 +21,10 @@ function RadioBtn({ options, onSelect, name }) {
               name={name}
               value={option.value}
               checked={selectedOption === option.value}
-              onChange={handleOptionChange}
+              onChange={(e) => handleOptionChange(e)}
             />
-            <label htmlFor={option.value}>{option.label}</label>
+            {/* <label htmlFor={option.value}>{option.label}</label> */}
+            <label htmlFor={option.value} className={selectedOption === option.value ? 'selected' : ''}>{option.label}</label>
           </div>
         ))}
       </div>

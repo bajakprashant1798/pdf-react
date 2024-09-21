@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const DoorDistanceControl = () => {
+const DoorDistanceControl = ({ doorDistance }) => {
   const totalWallWidth = 500; // Total wall width in pixels
   const totalInches = 100;    // Total wall width in inches
   const [doorDistanceInInches, setDoorDistanceInInches] = useState(0); // Distance in inches
@@ -10,6 +10,7 @@ const DoorDistanceControl = () => {
     const distanceInPixels = e.target.value;
     const distanceInInches = (distanceInPixels / totalWallWidth) * totalInches;
     setDoorDistanceInInches(distanceInInches);
+    doorDistance((distanceInInches))
   };
 
   // Handle change from input field
@@ -20,6 +21,7 @@ const DoorDistanceControl = () => {
     }
     if (inputInches >= 0 && inputInches <= totalInches) {
       setDoorDistanceInInches(inputInches);
+      doorDistance((inputInches))
     }
   };
 

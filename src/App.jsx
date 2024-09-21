@@ -22,12 +22,37 @@ const doorFaceOptions = [
   { label: 'Right', value: 'Right' },
 ];
 
-const imageTypeOptions = [
-  { value: 'image1', src: '/a.png', alt: 'Image 1' },
-  { value: 'image2', src: '/b.png', alt: 'Image 2' },
-  { value: 'image3', src: '/c.png', alt: 'Image 3' },
-  { value: 'image4', src: '/d.png', alt: 'Image 4' }
+const doorWidthHightOptions = [
+  { label: '80 x 32', value: '80 x 32' },
+  { label: '80 x 34', value: '80 x 34' },
+  { label: '80 x 36', value: '80 x 36' },
 ];
+
+const imageTypeOptions = [
+  { value: 'A', src: '/a.png', alt: 'Image 1' },
+  { value: 'B', src: '/b.png', alt: 'Image 2' },
+  { value: 'C', src: '/c.png', alt: 'Image 3' },
+  { value: 'D', src: '/d.png', alt: 'Image 4' }
+];
+
+const options = [
+  "Standard",
+  "Tempered",
+];
+const layoutName = [
+  "A",
+  "B",
+  "C",
+  "D"
+]
+const panelStyleOptions = [
+  "Single Strom O/S",
+  "Double Strom O/S",
+  "Single Strom I/S",
+  "Patio Strom O/X",
+  "Patio Strom X/O",
+]
+
 
 function App() {
   const [height, setHeight] = useState('');
@@ -42,11 +67,28 @@ function App() {
 
   // State to hold the selected image
 
+  // door distance variable usestate
+  const [ doorDistance, setDoorDistance ] = useState(null)
 
   const [selectedDoorType, setSelectedDoorType] = useState(null);
   const [selectedDoorSubType, setSelectedDoorSubType] = useState(null);
   const [selectedFaceType, setSelectedFaceType] = useState(null);
+  const [selectedDoorWidthHight, setSelectedDoorWidthHight] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+
+  // reset form
+  const resetForm = () => {
+    setHeight('')
+    setWidth('')
+    setColour('')
+    setPanelStyle('')
+    setSubmitted(false)
+    setGlass('')
+    setDoorHardwareStyle('')
+    setHardwareColour('')
+    setLayout('')
+  }
+
 
   // Array of images (You can replace these paths with actual image paths)
 
@@ -63,9 +105,27 @@ function App() {
     setSelectedDoorSubType(value);
   };
 
+  const handleDoorWidthHightSelect = (doorWidthHight) => {
+    setSelectedDoorWidthHight(doorWidthHight);
+  };
+
   const handleFaceTypeSelect = (faceTypeValue) => {
     setSelectedFaceType(faceTypeValue);
   };
+
+  // door distance jandler
+  const handleDistance = (value) => {
+    setDoorDistance(value);
+  };
+
+  // Handle input change
+  const handleHeightChange = (e) => {
+    setHeight(e.target.value); // Update height state as the user types
+  };
+
+  const handleWidthChange = (e) => {
+    setWidth(e.target.value);
+  }
 
  
   // const [numberOfWindow, setNumberOfWindow] = useState("")
@@ -100,62 +160,20 @@ function App() {
     }
   }
 
-
   useEffect(() => {
     heightVelidation()
   }, [height]);
 
-  // Handle input change
-  const handleHeightChange = (e) => {
-    setHeight(e.target.value); // Update height state as the user types
-  };
-
-  const handleWidthChange = (e) => {
-    setWidth(e.target.value);
-  }
-
-  const resetForm = () => {
-    setHeight('')
-    setWidth('')
-    setColour('')
-    setPanelStyle('')
-    setSubmitted(false)
-    setGlass('')
-    setDoorHardwareStyle('')
-    setHardwareColour('')
-    setLayout('')
-  }
 
 
-  
-
-  const options = [
-    "Standard",
-    "Tempered",
-  ];
-  const layoutName = [
-    "A",
-    "B",
-    "C",
-    "D"
-  ]
-  const panelStyleOptions = [
-    "Single Strom O/S",
-    "Double Strom O/S",
-    "Single Strom I/S",
-    "Patio Strom O/X",
-    "Patio Strom X/O",
-  ]
 
   return (
     <div className='p-5'>
-      {/* <h1>Height and width Square Calculator</h1> */}
-
-      <h2 className='text-center w-100 text-4xl font-semibold mb-5'>Company Name</h2>
-
       <form onSubmit={handleSubmit} className="max-w-screen-md mx-auto mb-5">
-
-        <div className='py-5'>
+        
+        <h2 className='text-center w-100 text-4xl font-semibold mb-5'>Company Name</h2>
+        
+        {/* <div className='py-5'>
           <label htmlFor="layout" className='block text-xl pb-1'>Layout: </label>
           <select id="layout" className='p-2 rounded-md outline-none w-full' value={layout} onChange={(e) => setLayout(e.target.value)}>
               <option>Select Layout </option>
@@ -167,31 +185,35 @@ function App() {
                   );
               })}
           </select>
-        </div>
+        </div> */}
 
 
 
         <div>
           <h2>Select an image:</h2>
-          <div className="radio-group">
+          <div className="radio-group flex flex-wrap pb-2">
               {imageTypeOptions.map((image, index) => (
-                  <label key={index}>
-                  <input
-                      type="radio"
-                      name="imageOption"
-                      value={image.value}
-                      onChange={() => handleImgSelect(image)}
-                      style={{ display: 'none' }} // Hide the radio button
-                  />
+                  <label key={index} className='flex mr-9 mb-5'>
+                  <div className='mr-2'>
+                    <input
+                        type="radio"
+                        name="imageOption"
+                        className=''
+                        value={image.value}
+                        onChange={() => handleImgSelect(image)}
+                        style={{  }} // Hide the radio button
+                    />
+                    <span className='ml-2 text-xl'>{image.value}</span>
+                  </div>
                   <img
                       src={image.src}
                       alt={image.alt}
                       className={selectedImage === image.src ? 'selected' : ''}
                       style={{
-                      width: '100px',
-                      height: '100px',
+                      width: '300px',
+                      height: '300px',
                       border: selectedImage === image.src ? '3px solid blue' : '2px solid transparent',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
                       }}
                   />
                   </label>
@@ -203,7 +225,7 @@ function App() {
 
         {/* Display the selected image */}
         {selectedImage && (
-          <div className="selected-image">
+          <div className="selected-image mb-6">
             <h3>Selected Image:</h3>
             <img src={selectedImage} alt="Selected" style={{ width: '200px', height: '200px' }} />
           </div>
@@ -220,7 +242,7 @@ function App() {
             </div>
           )}
 
-          <div className='md:grid md:grid-cols-2 md:gap-4'>
+          <div className='md:grid md:grid-cols-2 md:gap-4 mt-2'>
             <div className='mb-2 md:mb-0'>
               <label htmlFor="width" className='pb-1'>width(inch): </label>
               <input
@@ -283,14 +305,6 @@ function App() {
 
         <div className='pb-5'>
           <label className='block text-xl pb-1'>What face you need your door to be on: </label>
-            {/* <input
-              id="door-hardware"
-              className='p-1 rounded-md outline-none w-full'
-              type="text"
-              value={doorHardwareStyle}
-              onChange={(e) => setDoorHardwareStyle(e.target.value)}
-              
-            /> */}
 
             <RadioBtn options={doorFaceOptions} onSelect={handleFaceTypeSelect} name={"doorFace"} />
             {
@@ -302,14 +316,6 @@ function App() {
 
         <div className='pb-5'>
           <label className='block text-xl pb-1'>Door Hardware Style: </label>
-            {/* <input
-              id="door-hardware"
-              className='p-1 rounded-md outline-none w-full'
-              type="text"
-              value={doorHardwareStyle}
-              onChange={(e) => setDoorHardwareStyle(e.target.value)}
-              
-            /> */}
 
             <RadioBtn options={doorTypeOptions} onSelect={handleDoorTypeSelect} name={"doorType"} />
             {
@@ -325,9 +331,27 @@ function App() {
 
 
 
-        <div>
-          <DoorDistanceControl />
+        <div className="pb-5">
+          <DoorDistanceControl doorDistance={handleDistance}  />
+
+          <h3>Door Distance: {doorDistance} </h3>
         </div>
+
+
+
+        
+        <div className='pb-5'>
+          <label className='block text-xl pb-1'>Width and Hight of door: </label>
+
+            <RadioBtn options={doorWidthHightOptions} onSelect={handleDoorWidthHightSelect} name={"doorWidthHight"} />
+            {
+                <h3>Door Type: {selectedDoorWidthHight}</h3>
+                
+            }
+        </div>
+
+
+
 
 
         <div className='pb-5'>
@@ -366,7 +390,6 @@ function App() {
                   );
               })}
           </select>
-          {/* <h3>You selected: {glass} </h3> */}
         </div>
 
         <div className='flex flex-col md:flex-row justify-center items-center'>
@@ -377,10 +400,15 @@ function App() {
 
       {submitted && (
         
-        <div className='lg:grid lg:grid-cols-2 lg:gap-4'>
+        <div>
+
+          <div>
+            <Rectangle height={height} width={width} doorDistance={doorDistance} />
+            {/* <RectangleGride numberOfRectangles={numberOfWindow}  /> */}
+          </div>
+
           <div>
           {/* md:w-full lg:w-4/5 */}
-
             <h3 className='text-2xl font-medium text-center mb-3'>Quotation</h3>
             <PDFViewer className='w-full sm:w-full ' height={600}>
               <PDFDocument height={height} width={width} colour={colour} panelStyle={panelStyle} glass={glass} doorHardwareStyle={doorHardwareStyle} hardwareColour={hardwareColour} />
@@ -398,11 +426,8 @@ function App() {
             </div>
           </div>
 
-          <div>
-            <Rectangle height={height} width={width}  />
-            {/* <RectangleGride numberOfRectangles={numberOfWindow}  /> */}
-          </div>
         </div>
+      
       )}
 
     </div>

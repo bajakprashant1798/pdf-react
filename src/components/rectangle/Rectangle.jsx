@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Rectangle.css'
 
-const Rectangle = ({ height, width }) => {
-    
-    const [newWidth, setNewWidth] = useState('');
-    const [lastDivisor, setLastDivisor] = useState()
-    
-    const rectangles = Array(lastDivisor).fill(null);
+const Rectangle = ({ height, width, doorDistance }) => {
+
+  const [newWidth, setNewWidth] = useState('');
+  const [lastDivisor, setLastDivisor] = useState()
+  
+  const rectangles = Array(lastDivisor).fill(null);
     
 
     function adjustWidth(originalWidth) {
@@ -26,6 +26,11 @@ const Rectangle = ({ height, width }) => {
         return result;  // Return the last divisor used
     }
     
+  const totalWallWidth = newWidth * 3;
+  const totalInches = 100;
+
+  const distanceInInches = (doorDistance / totalWallWidth) * totalInches;
+    
 
     useEffect(() => {
         adjustWidth(width);
@@ -38,7 +43,7 @@ const Rectangle = ({ height, width }) => {
 
   return (
 
-    <div className="grid-container"
+    <div className="rectangle-section-container grid-container"
         style={ {
             display: 'grid',
             gridTemplateColumns: `repeat(${lastDivisor}, 1fr)`,
@@ -47,7 +52,7 @@ const Rectangle = ({ height, width }) => {
     >
         <p className='height-position vertical-lr'>{height}inch</p>
       {rectangles.map((_, index) => (
-        <div className="rectangle"  key={index}>
+        <div className="rectangle border-b-0"  key={index}>
           <div className="side top">{newWidth}inch</div>
           <div className="side bottom"></div>
           <div className="side left"></div>
@@ -57,7 +62,7 @@ const Rectangle = ({ height, width }) => {
       ))}
 
       {rectangles.map((_, index) => (
-        <div className="rectangle" key={index}>
+        <div className="rectangle border-t-0" key={index}>
           <div className="side top"></div>
           <div className="side bottom">{newWidth}inch</div>
           <div className="side left"></div>
@@ -65,7 +70,37 @@ const Rectangle = ({ height, width }) => {
         </div>
         
       ))}
-    </div>
+
+
+      {/* Wall and Door Representation */}
+      {/* <div 
+        className="wall" 
+        style={{
+          position: 'relative',
+          width: `300%`,
+          height: '30px',
+          backgroundColor: '#f0f0f0',
+          border: '2px solid black',
+          marginBottom: '20px',
+        }}
+      > */}
+
+        {/* Door */}
+        <div 
+          className="door"
+          style={{
+            position: 'absolute',
+            left: `${distanceInInches}%`,  // Door position in pixels
+            width: '120px',
+            height: '230px',
+            backgroundColor: 'brown',
+            transition: 'left 0.2s ease', // Smooth movement
+            bottom: '50px'
+          }}
+        />
+      </div>
+
+    // </div>
     
   );
 };
