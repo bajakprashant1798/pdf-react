@@ -1,6 +1,6 @@
 .height-position {
     position: absolute;
-    left: 20px;
+    left: -80px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -12,7 +12,7 @@
     gap: 0px;  */
     /* display: flex;
     flex-direction: column; */
-    padding: 50px 100px;
+    margin: 50px 100px;
     /* background-color: #333; */
     color: white;
     text-align: center;
@@ -24,7 +24,7 @@
     width: 120px;
     height: 230px;
     background-color: brown;
-    bottom: 50px;
+    bottom: 0px;
   }
 
   .wall {
@@ -79,21 +79,27 @@
 
 @media (max-width: 767px) {
     .grid-container {
-        padding: 50px 25px;
+        margin: 50px 25px;
     }
     .vertical-lr {
         writing-mode: vertical-lr;
         transform: rotate(180deg);
     }
     .height-position {
-        left: -10px;
+        left: -35px;
     }
 
     .door {
         width: 80px;
         height: 200px;
     }
-
+    .rectangle {
+        height: 190px;
+    }
+    .rectangle-door {
+        width: 100px;
+        height: 150px;
+    }
     /* 
     
     .grid-container .rectangle > :nth-child(2) {

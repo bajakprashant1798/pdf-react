@@ -80,34 +80,22 @@ const styles = StyleSheet.create({
     borderTop: 1,
     paddingTop: 20,
     textAlign: "right",
+  },
+  py: {
+    paddingVertical: 5,
   }
 });
 
-const PDFDocument = ({ height, width, colour, panelStyle, glass, doorHardwareStyle, hardwareColour }) => {
+const PDFDocument = ({ height, width }) => {
   const pdfHeight = height;
   const pdfWidth = width;
   // (width/3).toFixed(2)
-  const [numberOfWindow, setNumberOfWindow] = useState("")
-  const currentDate = new Date();
-
-  const data = {
-    id: "5df3180a09ea16dc4b95f910",
-    items: [
-      {
-        sr: 1,
-        part: "part1",
-        quantity: 2,
-        unitPrice: 136,
-      },
-      {
-        sr: 2,
-        part: "part2",
-        quantity: 8,
-        unitPrice: 256,
-      },
-    ],
-  };
-
+  const [numberOfWindow, setNumberOfWindow] = useState(0)
+  const [issueDate, setIssueDate] = useState('');
+  const [dateValidThrough, setDateValidThrough] = useState('')
+  const [tex, setTex] = useState(0)
+  const [total, setTotal] = useState(0)
+  // const [hChannelQuantity, setHChannelQuantity] = useState(0)
 
 
   function findLastDivisor(originalWidth) {
@@ -122,13 +110,103 @@ const PDFDocument = ({ height, width, colour, panelStyle, glass, doorHardwareSty
         }
     }
 
+      // let quentityhchannel = lastDivisor - 2
     setNumberOfWindow(lastDivisor)
+    // setHChannelQuantity(quentityhchannel)
     return lastDivisor;  // Return the last divisor used
   }
 
   useEffect(() => {
     findLastDivisor(width);
   }, [width]);
+
+
+  const data = {
+    id: "5df3180a09ea16dc4b95f910",
+    items: [
+      {
+        sr: 0,
+        part: "U Channel",
+        quantity: 2,
+        unitPrice: 136,
+        // subTotal: quantity * unitPrice
+      },
+      {
+        sr: 1,
+        part: "sU Channel",
+        quantity: 2,
+        unitPrice: 136,
+        // subTotal: quantity * unitPrice
+      },
+      {
+        sr: 2,
+        part: "H Channel",
+        quantity: (numberOfWindow - 2),
+        unitPrice: 256,
+        // subTotal: quantity * unitPrice
+      },
+      {
+        sr: 3,
+        part: "sH Channel",
+        quantity: 1,
+        unitPrice: 256,
+        // subTotal: quantity * unitPrice
+      },
+    ],
+  };
+
+  const [subTotalArr1, setSubTotalArr1] = useState([])
+  useEffect(() => {
+    let tempArray = [];
+    let quantity
+    
+    // Example of 5 iterations, can be any number
+    const pushItems = data.items.map((item, index) => {     
+      if(item.part === "H Channel") {
+        quantity = Number(Number(numberOfWindow) - 2)
+        console.log('quantity: ', quantity, numberOfWindow);
+        
+      } else {
+        quantity = Number(item.quantity)
+      }
+      tempArray.push(quantity * item.unitPrice)
+    })
+
+    console.log("temp: ", tempArray);
+    const totalOfArray = tempArray.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue;
+    }, 0);
+
+    const texCalc = (subTotalArr1 * 13) / 100
+    setTex(texCalc)
+    setTotal(tex + subTotalArr1)
+  setSubTotalArr1(totalOfArray)
+  
+  console.log("subTotalArr: ", subTotalArr1);
+
+}, [data]);
+
+
+  
+
+  useEffect(() => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const day = String(today.getDate()).padStart(2, '0');
+
+    const validThrough = new Date(today.setMonth(today.getMonth() + 3)); // Add 3 months
+    const yearValid = validThrough.getFullYear();
+    const monthValid = String(validThrough.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const dayValid = String(validThrough.getDate()).padStart(2, '0');
+
+
+    const issueDateFormatte = `${year}-${month}-${day}`;
+    const validThroughDateFormatte = `${yearValid}-${monthValid}-${dayValid}`
+    
+    setIssueDate(issueDateFormatte);
+    setDateValidThrough(validThroughDateFormatte)
+  }, []);
 
   return (
     <Document>
@@ -146,8 +224,8 @@ const PDFDocument = ({ height, width, colour, panelStyle, glass, doorHardwareSty
               <Text>Business number: [Client's business number]</Text>
             </View>
             <View>
-              <Text>Issue Date: 2021-06-01</Text>
-              <Text>Valid Through: 2021-09-01</Text>
+              <Text>Issue Date: {issueDate}</Text>
+              <Text>Valid Through: {dateValidThrough}</Text>
             </View>
           </View>
 
@@ -159,14 +237,14 @@ const PDFDocument = ({ height, width, colour, panelStyle, glass, doorHardwareSty
           
           <View style={styles.partsList}>
             {/* <Text style={styles.dateText}>{format(currentDate, 'dd-MM-yyyy')}</Text> */}
-            <Table data={data} />
-            <Text style={styles.noOfWindow}>Number Of Window : {numberOfWindow} </Text>
+            <Table data={data} width={width} />
+            <Text style={styles.noOfWindow}>Number Of Windows : {numberOfWindow} </Text>
           </View>
 
           <View style={styles.totalText}>
-            <Text>Subtotal: </Text>
-            <Text>TAX(13%): </Text>
-            <Text>Total: </Text>
+            <Text>Subtotal: ${subTotalArr1}</Text>
+            <Text style={styles.py}>TAX (13%): ${tex}</Text>
+            <Text>Total: ${total} </Text>
           </View>
 
           {/* Footer */}

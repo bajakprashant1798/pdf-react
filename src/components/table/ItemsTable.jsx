@@ -9,10 +9,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const ItemsTable = ({ data }) => (
+const ItemsTable = ({ data, width }) => (
   <View style={styles.tableContainer}>
     {/*<TableHeader />*/}
-    <TableRow items={data.items} />
+    <TableRow items={data.items} width={width} />
     {/*<TableFooter items={data.items} />*/}
   </View>
 );

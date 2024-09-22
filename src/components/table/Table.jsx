@@ -9,10 +9,10 @@ import ItemsTable from "./ItemsTable";
 //   },
 // });
 
-const Table = ({ data }) => (
+const Table = ({ data , width }) => (
 //   <Document>
 //     <Page size="A4" style={styles.page}>
-      <ItemsTable data={data} />
+      <ItemsTable data={data} width={width} />
 //     </Page>
 //   </Document>
 );

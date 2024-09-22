@@ -13,8 +13,8 @@ const doorTypeOptions = [
 ];
 
 const doorSubTypeOptions = [
-  { label: 'Insliding', value: 'Insliding' },
-  { label: 'Outsliding', value: 'Outsliding' },
+  { label: 'Insliding', value: 'Inswing' },
+  { label: 'Outsliding', value: 'Outswing' },
 ];
 
 const doorFaceOptions = [
@@ -24,9 +24,9 @@ const doorFaceOptions = [
 ];
 
 const doorWidthHightOptions = [
-  { label: '80 x 32', value: '80 x 32' },
-  { label: '80 x 34', value: '80 x 34' },
-  { label: '80 x 36', value: '80 x 36' },
+  { label: '80\x22 x 32\x22', value: '80 x 32' },
+  { label: '80\x22 x 34\x22', value: '80 x 34' },
+  { label: '80\x22 x 36\x22', value: '80 x 36' },
 ];
 
 const imageTypeOptions = [
@@ -87,6 +87,13 @@ function App() {
     setGlass('')
     setDoorHardwareStyle('')
     setHardwareColour('')
+    setLayout('')
+    setSelectedDoorType(null)
+    setSelectedDoorSubType(null)
+    setSelectedFaceType(null)
+    setSelectedDoorWidthHight(null)
+    setSelectedImage(null)
+    setDoorDistance(null)
     setLayout('')
   }
 
@@ -225,12 +232,12 @@ function App() {
         
 
         {/* Display the selected image */}
-        {selectedImage && (
+        {/* {selectedImage && (
           <div className="selected-image mb-6">
-            <h3>Selected Image:</h3>
+            <h3>Selected Layout:</h3>
             <img src={selectedImage} alt="Selected" style={{ width: '200px', height: '200px' }} />
           </div>
-        )}
+        )} */}
            
 
         <div className='mt-5 glassmorphism'>
@@ -243,7 +250,7 @@ function App() {
             </div>
           )}
 
-          <div className='md:grid md:grid-cols-2 md:gap-4 mt-2 '>
+          <div className='md:grid md:grid-cols-2 md:gap-4 mt-3 '>
             <div className='mb-2 md:mb-0 glassmorphism'>
               <label htmlFor="width" className='pb-1'>width(inch): </label>
               <input
@@ -309,53 +316,48 @@ function App() {
 
             <RadioBtn options={doorFaceOptions} onSelect={handleFaceTypeSelect} name={"doorFace"} />
             {
-                <h3>Door Face: {selectedFaceType}</h3>
-                
+              <h3>Door Face: {selectedFaceType}</h3>  
             }
         </div>
 
 
         <div className='mt-5 glassmorphism'>
-          <label className='block text-xl pb-1'>Door Hardware Style: </label>
+          <label className='block text-xl pb-1'>Door Type: </label>
 
             <RadioBtn options={doorTypeOptions} onSelect={handleDoorTypeSelect} name={"doorType"} />
-            {
-                <h3>Door Hardware Style: {selectedDoorType === "Single Door" ?
-                  <div> 
-                    <RadioBtn options={doorSubTypeOptions} onSelect={handleDoorSubTypeSelect} name={"doorSubType"} /> 
-                    <h3>Door SubType: {selectedDoorSubType}</h3>
-                  </div>
-                  : selectedDoorType }</h3>
-                
+            <h3>Door Type: {selectedDoorType}</h3> 
+            
+            <h3 className='text-xl mt-3'> Door Sub Type: </h3> 
+            { selectedDoorType === "Single Door" ?
+              <div> 
+                <RadioBtn options={doorSubTypeOptions} onSelect={handleDoorSubTypeSelect} name={"doorSubType"} /> 
+                <h3>Door Sub Type: {selectedDoorSubType}</h3>
+              </div>
+              : selectedDoorType 
             }
+                
+            
         </div>
 
+
+
+        <div className='mt-5 glassmorphism'>
+          {/* <label className='block text-xl pb-1'>Width and Height of door: </label> */}
+          <label className='block text-xl pb-1'>Door Size: </label>
+            <RadioBtn options={doorWidthHightOptions} onSelect={handleDoorWidthHightSelect} name={"doorWidthHight"} />
+            
+            {/* <h3>Door Type: {selectedDoorWidthHight}</h3> */}
+        </div>
 
 
         <div className="mt-5 glassmorphism">
           <DoorDistanceControl doorDistance={handleDistance}  />
-
-          <h3>Door Distance: {doorDistance} </h3>
+          {/* <h3>Door Distance: {doorDistance} </h3> */}
         </div>
 
 
 
-        
-        <div className='mt-5 glassmorphism'>
-          <label className='block text-xl pb-1'>Width and Hight of door: </label>
-
-            <RadioBtn options={doorWidthHightOptions} onSelect={handleDoorWidthHightSelect} name={"doorWidthHight"} />
-            {
-                <h3>Door Type: {selectedDoorWidthHight}</h3>
-                
-            }
-        </div>
-
-
-
-
-
-        <div className='mt-5 glassmorphism'>
+        {/* <div className='mt-5 glassmorphism'>
           <label htmlFor="panel" className='block text-xl pb-1'>Panel Style: </label>
           <select id="panel" className='p-2 rounded-md outline-none w-full' value={panelStyle} onChange={(e) => setPanelStyle(e.target.value)}>
               <option>Select Panel Style </option>
@@ -367,16 +369,6 @@ function App() {
                   );
               })}
           </select>
-
-          {/* <input
-            id="panel"
-            className='p-1 rounded-md outline-none w-full'
-            type="text"
-            value={panelStyle}
-            onChange={(e) => setPanelStyle(e.target.value)}
-            
-          /> */}
-
         </div>
 
         <div className='mt-5 glassmorphism'>
@@ -391,7 +383,7 @@ function App() {
                   );
               })}
           </select>
-        </div>
+        </div> */}
 
         <div className='mt-5 flex flex-col md:flex-row justify-center items-center'>
           <button type="submit" className='bg-white text-black font-semibold mb-3 md:mb-0'>Generate PDF</button>
@@ -412,7 +404,7 @@ function App() {
           {/* md:w-full lg:w-4/5 */}
             <h3 className='text-2xl font-medium text-center mb-3'>Quotation</h3>
             <PDFViewer className='w-full sm:w-full ' height={600}>
-              <PDFDocument height={height} width={width} colour={colour} panelStyle={panelStyle} glass={glass} doorHardwareStyle={doorHardwareStyle} hardwareColour={hardwareColour} />
+              <PDFDocument height={height} width={width}  />
             </PDFViewer>
 
             <div className='flex justify-center items-center'>

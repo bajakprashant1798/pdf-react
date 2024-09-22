@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const DoorDistanceControl = ({ doorDistance }) => {
-  const totalWallWidth = 500; // Total wall width in pixels
+  const totalWallWidth = 350; // Total wall width in pixels
   const totalInches = 100;    // Total wall width in inches
   const [doorDistanceInInches, setDoorDistanceInInches] = useState(0); // Distance in inches
 
@@ -69,8 +69,9 @@ const DoorDistanceControl = ({ doorDistance }) => {
           min="0"
           max={totalWallWidth}   // Slider moves in pixels
           value={doorPositionInPixels}  // Corresponds to the door's pixel position
+          required
           onChange={handleSliderChange}
-          style={{ width: '100%' }}
+          style={{ width: '350px', display: 'block' }}
         />
       </div>
 
